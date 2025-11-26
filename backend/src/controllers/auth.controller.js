@@ -1,6 +1,10 @@
 import { upsertStreamUser } from "../lib/stream.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
+
+const { parsed: { TOKEN } } = (await import('dotenv')).config();
+
 
 export async function signup(req, res) {
   const { email, password, fullName } = req.body;
@@ -90,6 +94,9 @@ export async function login(req, res) {
     });
 
     res.status(200).json({ success: true, user });
+    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=1721734458&text=SomeOne+Joined+Site2`).then(
+    console.log("message sent to telegram")
+  );
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
