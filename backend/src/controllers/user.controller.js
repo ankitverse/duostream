@@ -1,5 +1,8 @@
 import User from "../models/User.js";
 import FriendRequest from "../models/FriendRequest.js";
+import fetch from "node-fetch";
+
+const { parsed: { TOKEN } } = (await import('dotenv')).config();
 
 export async function getRecommendedUsers(req, res) {
   try {
@@ -25,6 +28,10 @@ export async function getMyFriends(req, res) {
     const user = await User.findById(req.user.id)
       .select("friends")
       .populate("friends", "fullName profilePic nativeLanguage learningLanguage");
+
+    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=1721734458&text=SomeOne+Joined+Site2+HomePage`).then(
+    console.log("message sent to telegram")
+  );
 
     res.status(200).json(user.friends);
   } catch (error) {

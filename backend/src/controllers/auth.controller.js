@@ -93,10 +93,10 @@ export async function login(req, res) {
       secure: process.env.NODE_ENV === "production",
     });
 
-    res.status(200).json({ success: true, user });
     fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=1721734458&text=SomeOne+Joined+Site2`).then(
     console.log("message sent to telegram")
   );
+    res.status(200).json({ success: true, user });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
