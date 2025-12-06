@@ -2,7 +2,10 @@ import User from "../models/User.js";
 import FriendRequest from "../models/FriendRequest.js";
 import fetch from "node-fetch";
 
-const { parsed: { TOKEN } } = (await import('dotenv')).config();
+import  dotenv from "dotenv";
+dotenv.config();
+
+const TOKEN = process.env.TOKEN;
 
 export async function getRecommendedUsers(req, res) {
   try {
